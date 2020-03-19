@@ -1,38 +1,65 @@
-.App {
-  text-align: center;
+*{
+    box-sizing: border-box;
+}
+.main-content{
+    width: 100%;
+    display: flex;
+}
+h1{
+    width: 100%;
+    border-bottom: 1px solid black;
+    margin: 0;
+    padding: 20px 0 10px;
+    text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.sidebar{
+    text-align: center;
+    width: 25%;
+    border-right: 1px solid black;
+}
+.folder-list{
+    list-style: none;
+    padding: 0;
+    margin: 36px 0;
+}
+.folder{
+    text-align: center;
+    border: 1px solid black;
+    padding: 10px 0;
+}
+.add-folder{
+    border: 1px solid black;
+    background-color: white;
+    width: 90%;
+    padding: 10px 0;
+}
+.active{
+    background-color: blue;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.note-list{
+    list-style: none;
+    width: 75%;
 }
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.note-item{
+    border: 1px solid black;
+    padding: 15px;
+    margin: 20px 20px 10px;
+    position: relative;
 }
-
-.App-link {
-  color: #61dafb;
+h2{
+    margin-top: 0;
 }
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.date{
+    display: inline-block;
+}
+.delete{
+    display: inline-block;
+    position: absolute;
+    right: 15px;
+    bottom: 15px;
+    border: 1px solid black;
+    background-color: white;
+    padding : 8px 5px;
 }
