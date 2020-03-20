@@ -3,18 +3,15 @@ import React from 'react';
 import Note from '../Note/Note';
 
 class HomeMain extends React.Component{
-    filterNotes(){
-        let notes = this.props.data.notes;
-        if(this.props.folder !== ''){
-            notes = notes.filter(note => note.folderId === this.props.folder);
-        }
-        return notes.map(note => 
-                <Note key={note.id} noteInfo={note}/>);
-    }
     render(){
+        const notes = this.props.notes.map(note => 
+                 <Note key={note.id} noteInfo={note}/>);
         return(
             <ul className='note-list'>
-               {this.filterNotes()}
+               {notes}
+                <li>
+                    <button className='add-note'>Add Note</button>
+                </li>
             </ul>
         )
     }

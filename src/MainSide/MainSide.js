@@ -3,9 +3,8 @@ import { NavLink } from 'react-router-dom';
 
 class MainSide extends React.Component{
     render(){
-
-        const folder = this.props.data.folders.map(folder => 
-            <li key={folder.id} className='folder'><NavLink  to={`/folder/${folder.id}`} onClick={() => this.props.folderClick(folder.id)}>{folder.name}</NavLink></li>
+        const folder = this.props.folders.map(folder => 
+            <li key={folder.id} className='folder'><NavLink  to={`/folder/${folder.id}`}>{folder.name}</NavLink></li>
         );
         return(
             <nav className='sidebar'>
