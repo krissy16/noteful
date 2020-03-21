@@ -9,22 +9,32 @@ import MainSide from './MainSide/MainSide';
 import NoteSide from './NoteSide/NoteSide';
 import HomeMain from './HomeMain/HomeMain';
 import NoteMain from './NoteMain/NoteMain';
+import NotefulContext from './NotefulContext';
 
 class App extends React.Component {
+  state={
+    folders: dummy.folders,
+    notes: dummy.notes,
+    error: null
+  }
+
+  deleteNote(){
+    
+  }
+
   renderSidebar(){
     return(
       <Switch>
         <Route exact path='/' render={() => 
-          <MainSide 
-            folders={dummy.folders}/>
+          <MainSide />
         }/>
-        <Route path='/folder/:folderId' render={(routerProps) => 
+        <Route path='/folder/:folderId' render={() => 
           <MainSide 
-            folders={dummy.folders}/>
+            folders={this.state.folders}/>
         }/>
         <Route path='/note/:noteId' render={(routerProps) => {
-          const folderId = dummy.notes.filter(note => note.id === routerProps.match.params.noteId)[0].folderId;
-          const folderName = dummy.folders.filter(folder => folder.id === folderId)[0].name;
+          const folderId = this.state.notes.filter(note => note.id === routerProps.match.params.noteId)[0].folderId;
+          const folderName = this.state.folders.filter(folder => folder.id === folderId)[0].name;
           return <NoteSide {...routerProps} folderName={folderName}/>
         }}/>
       </Switch>)
@@ -32,29 +42,37 @@ class App extends React.Component {
   renderMain(){
     return(
       <Switch>
-       <Route exact path='/' render={() => 
-              <HomeMain notes={dummy.notes}/>
-            }/>
-            <Route path='/folder/:folderId' render={(routerProps) => 
-              <HomeMain {...routerProps}
-                notes={dummy.notes.filter(note => note.folderId === routerProps.match.params.folderId)} />
-            }/>
-            <Route path='/note/:noteId' render={(routerProps)=>
-              <NoteMain noteInfo={dummy.notes.filter(note => note.id === routerProps.match.params.noteId)[0]}/>
-            }/>
-            <Route render={()=> <p>Page not Found</p>} />
+        <Route exact path='/' render={() => 
+          <HomeMain notes={this.state.notes}/>
+        }/>
+        <Route path='/folder/:folderId' render={(routerProps) => 
+          <HomeMain 
+            notes={this.state.notes.filter(note => note.folderId === routerProps.match.params.folderId)} />
+        }/>
+        <Route path='/note/:noteId' render={(routerProps)=>
+          <NoteMain noteInfo={this.state.notes.filter(note => note.id === routerProps.match.params.noteId)[0]}/>
+        }/>
+        <Route render={()=> <p>Page not Found</p>} />
       </Switch>
 
     )
   }
+
   render(){
+    const contextValue={
+      folders: this.state.folders,
+      notes: this.state.notes,
+      deleteNote: this.deleteNote
+    }
     return (
       <main className='App'>
         <Header />
-        <main className='main-content'>
-          {this.renderSidebar()}
-          {this.renderMain()}
-        </main>
+        <NotefulContext.Provider value={contextValue}>
+          <main className='main-content'>
+            {this.renderSidebar()}
+            {this.renderMain()}
+          </main>
+        </NotefulContext.Provider>
       </main>
     )
   }

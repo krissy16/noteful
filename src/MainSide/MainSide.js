@@ -1,9 +1,11 @@
 import React from 'react'
-import { NavLink } from 'react-router-dom';
+import { NavLink } from 'react-router-dom'
+import NotefulContext from '../NotefulContext'
 
 class MainSide extends React.Component{
+    static contextType = NotefulContext;
     render(){
-        const folder = this.props.folders.map(folder => 
+        const folder = this.context.folders.map(folder => 
             <li key={folder.id} className='folder'><NavLink  to={`/folder/${folder.id}`}>{folder.name}</NavLink></li>
         );
         return(
