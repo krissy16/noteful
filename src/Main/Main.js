@@ -5,7 +5,7 @@ class Main extends React.Component{
     render(){
         return(
             <>
-                {this.props.children[0]}
+                {this.props.children}
             </>
         )
     }

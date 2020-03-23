@@ -2,7 +2,6 @@ import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 
 import './App.css'
-import dummy from './dummy-store';
 
 import Header from './Header/Header';
 import MainSide from './MainSide/MainSide';
@@ -13,49 +12,64 @@ import NotefulContext from './NotefulContext';
 
 class App extends React.Component {
   state={
-    folders: dummy.folders,
-    notes: dummy.notes,
+    folders: [],
+    notes: [],
     error: null
   }
+  
+  componentDidMount(){
+    fetch('http://localhost:9090/folders')
+      .then(res => {
+        if (!res.ok) {
+          throw new Error(res.status)
+        }
+        return res.json()
+      })
+      .then((data) => this.setState({
+        folders: data
+      }))
+      .catch(error => this.setState({ error }));
+      fetch('http://localhost:9090/notes')
+      .then(res => {
+        if (!res.ok) {
+          throw new Error(res.status)
+        }
+        return res.json()
+      })
+      .then((data) => this.setState({
+        notes: data
+      }))
+      .catch(error => this.setState({ error }));
+  }
 
-  deleteNote(){
-    
+  deleteNote = noteId => {
+    const newNotes = this.state.notes.filter( note => 
+        note.id !== noteId
+      )
+    this.setState({
+      notes: newNotes,
+      error: null
+    });
   }
 
   renderSidebar(){
     return(
-      <Switch>
-        <Route exact path='/' render={() => 
-          <MainSide />
-        }/>
-        <Route path='/folder/:folderId' render={() => 
-          <MainSide 
-            folders={this.state.folders}/>
-        }/>
-        <Route path='/note/:noteId' render={(routerProps) => {
-          const folderId = this.state.notes.filter(note => note.id === routerProps.match.params.noteId)[0].folderId;
-          const folderName = this.state.folders.filter(folder => folder.id === folderId)[0].name;
-          return <NoteSide {...routerProps} folderName={folderName}/>
-        }}/>
-      </Switch>)
+      <>
+        <Route exact path='/' component={MainSide}/>
+        <Route path='/folder/:folderId' component={MainSide}/>
+        <Route path='/note/:noteId' component={NoteSide}/>
+      </>
+      )
   }
   renderMain(){
     return(
       <Switch>
-        <Route exact path='/' render={() => 
-          <HomeMain notes={this.state.notes}/>
-        }/>
-        <Route path='/folder/:folderId' render={(routerProps) => 
-          <HomeMain 
-            notes={this.state.notes.filter(note => note.folderId === routerProps.match.params.folderId)} />
-        }/>
-        <Route path='/note/:noteId' render={(routerProps)=>
-          <NoteMain noteInfo={this.state.notes.filter(note => note.id === routerProps.match.params.noteId)[0]}/>
-        }/>
+        <Route exact path='/' component={HomeMain}/>
+        <Route path='/folder/:folderId' component={HomeMain}/>
+        <Route path='/note/:noteId' component={NoteMain}/>
         <Route render={()=> <p>Page not Found</p>} />
       </Switch>
-
-    )
+    ) 
   }
 
   render(){
@@ -79,29 +93,3 @@ class App extends React.Component {
 }
 
 export default App;
-
-
-/*
-
-import Sidebar from './Sidebar/Sidebar';
-import Main from './Main/Main';
-
-<Sidebar>
-            <Route exact path='/' render={(routerProps) => 
-              <MainSide data={dummy} folderClick={(folderId) => this.onFolderClick(folderId)}/>
-            }/>
-            <Route path='/folder/:folder-id' render={(routerProps) => 
-              <MainSide {...routerProps} data={dummy} folderClick={(folderId) => this.onFolderClick(folderId)}/>
-            }/>
-            <Route path='note/:note-id' component={NoteSide}/>
-          </Sidebar>
-          <Main>
-            <Route exact path='/' render={() => 
-              <HomeMain data={dummy} folder={this.state.selectedFolderId}/>
-            }/>
-            <Route path='/folder/:folder-id' render={() => 
-              <HomeMain data={dummy} folder={this.state.selectedFolderId}/>
-            }/>
-            <Route path='note/:note-id' component={NoteMain}/>
-          </Main>
-*/
