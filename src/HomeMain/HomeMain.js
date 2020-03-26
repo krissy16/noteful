@@ -14,7 +14,7 @@ class HomeMain extends React.Component{
             <ul className='note-list'>
                {notes}
                 <li>
-                    <button className='add-note'>Add Note</button>
+                    <button className='add-note button' onClick={()=>{this.props.history.push('/addNote')}}>Add Note</button>
                 </li>
             </ul>
         )

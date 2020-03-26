@@ -8,7 +8,10 @@ import MainSide from './MainSide/MainSide';
 import NoteSide from './NoteSide/NoteSide';
 import HomeMain from './HomeMain/HomeMain';
 import NoteMain from './NoteMain/NoteMain';
+import AddFolder from './AddFolder/AddFolder';
+import AddNote from './AddNote/AddNote';
 import NotefulContext from './NotefulContext';
+import ErrorCatcher from './ErrorCatcher';
 
 class App extends React.Component {
   state={
@@ -52,23 +55,41 @@ class App extends React.Component {
     });
   }
 
+  addNote = note => {
+    this.setState({
+      notes: [ ...this.state.notes, note ]
+    })
+  }
+
+  addFolder = folder => {
+    this.setState({
+      folders: [ ...this.state.folders, folder ]
+    })
+  }
+
   renderSidebar(){
     return(
       <>
-        <Route exact path='/' component={MainSide}/>
-        <Route path='/folder/:folderId' component={MainSide}/>
-        <Route path='/note/:noteId' component={NoteSide}/>
+        <ErrorCatcher message='sidebar' styling='sidebar'>
+          <Route exact path='/' component={MainSide}/>
+          <Route path='/folder/:folderId' component={MainSide}/>
+          <Route path='/note/:noteId' component={NoteSide}/>
+        </ErrorCatcher>
       </>
       )
   }
   renderMain(){
     return(
-      <Switch>
-        <Route exact path='/' component={HomeMain}/>
-        <Route path='/folder/:folderId' component={HomeMain}/>
-        <Route path='/note/:noteId' component={NoteMain}/>
-        <Route render={()=> <p>Page not Found</p>} />
-      </Switch>
+      <ErrorCatcher message='page' styling='note-list'>
+        <Switch>
+          <Route exact path='/' component={HomeMain}/>
+          <Route path='/folder/:folderId' component={HomeMain}/>
+          <Route path='/note/:noteId' component={NoteMain}/>
+          <Route path='/addNote' component={AddNote}/>
+          <Route path='/addFolder' component={AddFolder}/>
+          <Route render={()=> <p>Page not Found</p>} />
+        </Switch>
+      </ErrorCatcher>
     ) 
   }
 
@@ -76,7 +97,9 @@ class App extends React.Component {
     const contextValue={
       folders: this.state.folders,
       notes: this.state.notes,
-      deleteNote: this.deleteNote
+      deleteNote: this.deleteNote,
+      addNote: this.addNote,
+      addFolder: this.addFolder
     }
     return (
       <main className='App'>

@@ -13,7 +13,7 @@ class NoteSide extends React.Component{
         folderName = folderName? folderName.name : '';
         return(
             <nav className='sidebar'>
-                <button className='go-back' onClick={ e => this.props.history.goBack()}>Go Back</button>
+                <button className='go-back button' onClick={ e => this.props.history.goBack()}>Go Back</button>
                 <p>{folderName}</p>  
             </nav>          
         )

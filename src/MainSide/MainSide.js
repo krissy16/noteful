@@ -13,7 +13,7 @@ class MainSide extends React.Component{
                 <ul className='folder-list'>
                     {folder}
                 </ul>
-                <button className='add-folder'>Add Folder</button>
+                <button className='add-folder button' onClick={()=>{this.props.history.push('/addFolder')}}>Add Folder</button>
             </nav>
         )
     }
