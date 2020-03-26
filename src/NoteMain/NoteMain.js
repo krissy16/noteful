@@ -5,9 +5,6 @@ import Note from '../Note/Note';
 
 class NoteMain extends React.Component{
     static contextType = NotefulContext;
-    static defaultProps = {
-        notes: []
-    }
     render(){
         const noteInfo=this.context.notes.filter(note => note.id === this.props.match.params.noteId)[0] || '';
         return(

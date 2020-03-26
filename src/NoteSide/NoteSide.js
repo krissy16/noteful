@@ -3,9 +3,6 @@ import NotefulContext from '../NotefulContext'
 
 class NoteSide extends React.Component{
     static contextType = NotefulContext;
-    static defaultProps = {
-        notes: []
-    }
     render(){
         let folderId = this.context.notes.filter(note => note.id === this.props.match.params.noteId)[0];
         folderId = folderId ? folderId.folderId : '';

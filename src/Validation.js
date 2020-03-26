@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types'
 
 function Validation(props){
     if(props.message) {
@@ -9,5 +10,9 @@ function Validation(props){
     
       return <></>
 }
+
+Validation.propTypes ={
+  message: PropTypes.string
+};
 
 export default Validation

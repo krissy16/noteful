@@ -1,7 +1,7 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import NotefulContext from '../NotefulContext'
-
+import PropTypes from 'prop-types'
 
 
 class Note extends React.Component{
@@ -45,4 +45,16 @@ class Note extends React.Component{
     }
 }
 
+Note.propTypes ={
+  onDeleteNote: PropTypes.func.isRequired,
+  noteInfo: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    modified: PropTypes.string.isRequired,
+    folderId: PropTypes.string.isRequired,
+    content: PropTypes.string.isRequired,
+  })
+};
+
 export default Note
+

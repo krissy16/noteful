@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 
 class ErrorCatcher extends React.Component{
     constructor(props) {
@@ -19,5 +20,10 @@ class ErrorCatcher extends React.Component{
         return this.props.children;
       }  
 }
+
+ErrorCatcher.propTypes ={
+  message: PropTypes.string.isRequired,
+  styling: PropTypes.string.isRequired,
+};
 
 export default ErrorCatcher
