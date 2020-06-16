@@ -6,7 +6,7 @@ class MainSide extends React.Component{
     static contextType = NotefulContext;
     render(){
         const folder = this.context.folders.map(folder => 
-            <li key={folder.id} className='folder'><NavLink  to={`/folder/${folder.id}`}>{folder.name}</NavLink></li>
+            <li key={folder.id} className='folder'><NavLink  to={`/folder/${folder.id}`}>{folder.folder_name}</NavLink></li>
         );
         return(
             <nav className='sidebar'>

@@ -7,9 +7,10 @@ import Note from '../Note/Note';
 class HomeMain extends React.Component{
     static contextType = NotefulContext;
     render(){
-        let notes = this.props.match.params.folderId ? this.context.notes.filter(note => note.folderId === this.props.match.params.folderId) : this.context.notes
+        let notes = this.props.match.params.folderId ? this.context.notes.filter(note => note.folder_id.toString() === this.props.match.params.folderId) : this.context.notes
         notes = notes.map(note => 
                  <Note key={note.id} noteInfo={note}/>);
+       
         return(
             <ul className='note-list'>
                {notes}

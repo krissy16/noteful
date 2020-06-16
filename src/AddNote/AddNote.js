@@ -26,9 +26,8 @@ class AddNote extends React.Component{
         e.preventDefault();
         const data = {
             content: this.state.content.trim(),
-            folderId: this.state.folder,
-            modified: new Date().toISOString(),
-            name: this.state.name.trim()
+            folder_id: this.state.folder,
+            note_title: this.state.name.trim()
         }
         this.postNote(data)  
     }
@@ -55,7 +54,7 @@ class AddNote extends React.Component{
     }
 
     postNote(data){
-        fetch('http://localhost:9090/notes', {
+        fetch('http://localhost:8000/api/notes', {
             method: 'POST',
             headers: {
               'content-type': 'application/json'
@@ -77,7 +76,7 @@ class AddNote extends React.Component{
 
     render(){
         const folders = this.context.folders.map(folder => 
-            <option key={folder.id} value={folder.id}>{folder.name}</option>
+            <option key={folder.id} value={folder.id}>{folder.folder_name}</option>
         );
         const validationError = this.validateForm();
         return(

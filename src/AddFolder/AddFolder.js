@@ -23,12 +23,12 @@ class AddFolder extends React.Component{
     }
 
     postFolder(){
-        fetch('http://localhost:9090/folders', {
+        fetch('http://localhost:8000/api/folders', {
             method: 'POST',
             headers: {
               'content-type': 'application/json'
             },
-            body: JSON.stringify({name: this.state.name})
+            body: JSON.stringify({folder_name: this.state.name})
           })
         .then(res => {
           if (!res.ok) {
@@ -71,9 +71,3 @@ class AddFolder extends React.Component{
 }
 
 export default AddFolder
-
-
-/* 
-id ""
-name ""
-*/

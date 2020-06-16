@@ -21,7 +21,7 @@ class App extends React.Component {
   }
   
   componentDidMount(){
-    fetch('http://localhost:9090/folders')
+    fetch('http://localhost:8000/api/folders')
       .then(res => {
         if (!res.ok) {
           throw new Error(res.status)
@@ -32,7 +32,7 @@ class App extends React.Component {
         folders: data
       }))
       .catch(error => this.setState({ error }));
-      fetch('http://localhost:9090/notes')
+      fetch('http://localhost:8000/api/notes')
       .then(res => {
         if (!res.ok) {
           throw new Error(res.status)
