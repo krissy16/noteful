@@ -11,7 +11,7 @@ class Note extends React.Component{
       }
 
     deleteNote(noteId, callback){
-        fetch(`http://localhost:8000/api/notes/${noteId}`, {
+        fetch(`${config.API_ENDPOINT}/api/notes/${noteId}`, {
             method: 'DELETE',
             headers: {
               'content-type': 'application/json'

@@ -23,7 +23,7 @@ class AddFolder extends React.Component{
     }
 
     postFolder(){
-        fetch('http://localhost:8000/api/folders', {
+        fetch(`${config.API_ENDPOINT}/api/folders`, {
             method: 'POST',
             headers: {
               'content-type': 'application/json'

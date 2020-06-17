@@ -1,6 +1,6 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
-
+import config from './config'
 import './App.css'
 
 import Header from './Header/Header';
@@ -21,7 +21,7 @@ class App extends React.Component {
   }
   
   componentDidMount(){
-    fetch('http://localhost:8000/api/folders')
+    fetch(`${config.API_ENDPOINT}/api/folders`)
       .then(res => {
         if (!res.ok) {
           throw new Error(res.status)
@@ -32,7 +32,7 @@ class App extends React.Component {
         folders: data
       }))
       .catch(error => this.setState({ error }));
-      fetch('http://localhost:8000/api/notes')
+      fetch(`${config.API_ENDPOINT}/api/notes`)
       .then(res => {
         if (!res.ok) {
           throw new Error(res.status)

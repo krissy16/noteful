@@ -54,7 +54,7 @@ class AddNote extends React.Component{
     }
 
     postNote(data){
-        fetch('http://localhost:8000/api/notes', {
+        fetch(`${config.API_ENDPOINT}/api/notes`, {
             method: 'POST',
             headers: {
               'content-type': 'application/json'
