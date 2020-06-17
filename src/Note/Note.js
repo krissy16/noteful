@@ -3,6 +3,7 @@ import { NavLink } from 'react-router-dom';
 import NotefulContext from '../NotefulContext'
 import PropTypes from 'prop-types'
 
+import config from '../config'
 
 class Note extends React.Component{
     static contextType = NotefulContext;

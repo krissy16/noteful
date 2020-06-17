@@ -1,6 +1,7 @@
 import React from 'react'
 import NotefulContext from '../NotefulContext'
 import Validation from '../Validation';
+import config from '../config'
 
 class AddNote extends React.Component{
     constructor(props) {
